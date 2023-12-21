@@ -11,7 +11,8 @@ namespace B24AdvertFormat
         public enum DataType
         {
             Unencoded,
-            Encoded
+            Encoded,
+            DoNotProcess
         }
 
         #region properties
@@ -31,27 +32,34 @@ namespace B24AdvertFormat
             byte[] unencoded = null;
             if (13 == data.Length)
             {
-                if (DataType.Encoded == dt)
+                switch (dt)
                 {
-                    unencoded = new byte[data.Length];
-                    unencoded[0] = data[0];
-                    unencoded[1] = data[1];
-                    unencoded[2] = data[2];
-                    decodeData(ref unencoded, data, 3);
-                }
-                else
-                {
-                    unencoded = data;
+                    case DataType.Unencoded:
+                        // TODO: implement
+                        break;
+                    case DataType.Encoded:
+                        unencoded = new byte[data.Length];
+                        unencoded[0] = data[0];
+                        unencoded[1] = data[1];
+                        unencoded[2] = data[2];
+                        decodeData(ref unencoded, data, 3);
+                        break;
+                    case DataType.DoNotProcess:
+                    default:
+                        unencoded = data;
+                        break;
                 }
                 if (1 == unencoded[0])
                 {
-                    Advertisment = new B24Advertisment();
-                    Advertisment.ModuleID = new byte[] { unencoded[1], unencoded[2] };
-                    Advertisment.Status = unencoded[3];
-                    Advertisment.Units = unencoded[4];
-                    Advertisment.Data = new byte[] { unencoded[5], unencoded[6], unencoded[7], unencoded[8] };
-                    Advertisment.DataTag1 = new byte[] { unencoded[9], unencoded[10] };
-                    Advertisment.DataTag2 = new byte[] { unencoded[11], unencoded[12] };
+                    Advertisment = new B24Advertisment
+                    {
+                        ModuleID = new byte[] { unencoded[1], unencoded[2] },
+                        Status = unencoded[3],
+                        Units = unencoded[4],
+                        Data = new byte[] { unencoded[5], unencoded[6], unencoded[7], unencoded[8] },
+                        DataTag1 = new byte[] { unencoded[9], unencoded[10] },
+                        DataTag2 = new byte[] { unencoded[11], unencoded[12] }
+                    };
                     result = true;
                 }
                 else
