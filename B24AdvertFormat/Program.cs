@@ -8,12 +8,47 @@ namespace B24AdvertFormat
     {
         static void Main(string[] args)
         {
-            B24AdvertismentParser parser8742 = new B24AdvertismentParser("8742");
-            B24AdvertismentParser parser0000 = new B24AdvertismentParser("0000");
-            byte[] data1 = new byte[] { 0x01, 0x12, 0x34, 0x64, 0x75, 0x5B, 0x51, 0x96, 0x11, 0x00, 0x43, 0x76, 0x6C };
-            byte[] data2 = new byte[] { 0x01, 0x66, 0x78, 0x6C, 0x5F, 0xDD, 0xF1, 0xD2, 0x60, 0x70, 0x0D, 0x0A, 0x27 };
-            byte[] data3 = new byte[] { 0x01, 0x66, 0x78, 0x6C, 0x5F, 0xDD, 0x0E, 0xE7, 0x3C, 0x70, 0x0D, 0x0A, 0x27 };
-
+            #region old TestVector
+            //B24AdvertismentParser parser8742 = new B24AdvertismentParser("8742");
+            //B24AdvertismentParser parser0000 = new B24AdvertismentParser("0000");
+            //byte[] data1 = new byte[] { 0x01, 0x12, 0x34, 0x64, 0x75, 0x5B, 0x51, 0x96, 0x11, 0x00, 0x43, 0x76, 0x6C };
+            //byte[] data2 = new byte[] { 0x01, 0x66, 0x78, 0x6C, 0x5F, 0xDD, 0xF1, 0xD2, 0x60, 0x70, 0x0D, 0x0A, 0x27 };
+            //byte[] data3 = new byte[] { 0x01, 0x66, 0x78, 0x6C, 0x5F, 0xDD, 0x0E, 0xE7, 0x3C, 0x70, 0x0D, 0x0A, 0x27 };
+            #endregion
+            List<TestVector> testVectors = new List<TestVector> {
+                new TestVector {
+                    PIN = "8742",
+                    EncodedData = new byte[] { 0x01, 0x12, 0x34, 0x64, 0x75, 0x5B, 0x51, 0x96, 0x11, 0x00, 0x43, 0x76, 0x6C }
+                },
+                new TestVector {
+                    PIN = "0000",
+                    EncodedData = new byte[] { 0x01, 0x66, 0x78, 0x6C, 0x5F, 0xDD, 0xF1, 0xD2, 0x60, 0x70, 0x0D, 0x0A, 0x27 }
+                },
+                new TestVector {
+                    PIN = "0000",
+                    EncodedData = new byte[] { 0x01, 0x66, 0x78, 0x6C, 0x5F, 0xDD, 0x0E, 0xE7, 0x3C, 0x70, 0x0D, 0x0A, 0x27 }
+                },
+                new TestVector {
+                    PIN = "0000",
+                    EncodedData = new byte[] { 0x01, 0x66, 0x78, 0x6C, 0x5F, 0xDD, 0x2C, 0x8E, 0xE0, 0x70, 0x0D, 0x0A, 0x27 }
+                },
+            };
+#if true
+            foreach (TestVector testVector in testVectors)
+            {
+                B24AdvertismentParser parser = new B24AdvertismentParser(testVector.PIN);
+                if (parser.SetPayload(B24AdvertismentParser.DataType.Encoded, testVector.EncodedData))
+                {
+                    B24Advertisment advert = parser.Advertisment;
+                    printRawData(testVector.EncodedData);
+                    printAdvertisment(advert);
+                }
+                else
+                {
+                    Console.WriteLine("Payload not set");
+                }
+            }
+#else
             if (parser8742.SetPayload(B24AdvertismentParser.DataType.Encoded, data1))
             {
                 B24Advertisment advert1 = parser8742.Advertisment;
@@ -44,6 +79,8 @@ namespace B24AdvertFormat
             {
                 Console.WriteLine("Payload not set");
             }
+#endif
+
             if(Debugger.IsAttached)
             {
                 Console.WriteLine("\npress any key to continue ...");
