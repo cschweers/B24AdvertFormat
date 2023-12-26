@@ -1,0 +1,44 @@
+Based on the data you have entered here, I would say that the length of the "Payload" of the "Manufacturer Specific Data" is already correct and the first structural element also looks right. But then the data becomes strange. Either you are looking at the wrong data or your source code is changing it (e.g. what does ParseRecordStackMiPregunta() do?). This is how I would interpret one of your example datagrams, for example: 
+```<br/>
+0166786C5FDDF1F084700D0A27<br/>
+Format ID	01<br/>
+Data Tag  	6678<br/>
+Status		6C<br/>
+Units		5F
+Data		DDF1F084
+Data Tag  	700D
+Data Tag  	0A27<br/>
+```
+
+`0166786C5FDDF1F084700D0A27`, Format ID: `01`, Data Tag: `6678`, Status: `6C`, Units: `5F`, Data: `DDF1F084`, Data Tag: `700D`, Data Tag: `0A27`
+
+
+
+C280C32A
+
+    0166786C5FDDF1D260700D0A27
+1.7459864E29
+0166786C5FDDF1F084700D0A27
+1.7459864E29
+0166786C5FDD2C8EE0700D0A27
+1.7459864E29
+0166786C5FDD34422A700D0A27
+1.7459864E29
+0166786C5FDD20C1CE700D0A27
+1.7459864E29
+0166786C5FDD0E390C700D0A27
+1.7459864E29
+0166786C5FDD32C142700D0A27
+1.7459864E29
+0166786C5FDD3E5184700D0A27
+1.7459864E29
+0166786C5FDD0EF6FE700D0A27
+1.7459864E29
+0166786C5FDDF137D4700D0A27
+1.7459864E29
+0166786C5FDD0E2EB0700D0A27
+1.7459864E29
+0166786C5FDDF10EFA700D0A27
+1.7459864E29
+0166786C5FDD0EE73C700D0A27
+1.7459864E29

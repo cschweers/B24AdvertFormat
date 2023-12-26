@@ -1,0 +1,42 @@
+0166786C5FDDF1F084700D0A27
+
+Format ID	01
+Data Tag	6678
+Status		6C			=> Digital Input Active Flag, Low battery warning flag,Input is out of sensitivity or display range, A tare value has been applied.
+Units		5F			=> 0x5F pressure bar bar 1
+Data		DDF1F084	=> -2.179197411635757056E18
+Data Tag	700D
+Data Tag	0A27
+
+0166786C5FDDF1F084700D0A27
+Format ID	01
+Data Tag	6678
+Status		6C
+Units		5F
+Data		DDF1F084
+Data Tag	700D
+Data Tag	0A27
+
+
+
+Length field 1 byte Part of the Spec
+Advert Type 1 byte 0xFF (Manufacturer Specific Data)
+Company ID 2 bytes 0x04C3
+Format ID 1 byte
+Data Tag 2 bytes Module ID
+Status 1 byte
+Units 1 byte
+Data 4 bytes Floating point data (IEEE 754)
+Data Tag 2 bytes Used to verify decoding
+Data Tag 2 bytes Used to verify decoding
+
+Status
+Bit Name Description
+7 Reserved Reserved
+6 Digital Input Digital Input Active Flag
+5 Batt Low Low battery warning flag
+4 Fast Mode Unit is currently operating in “Fast” data rate mode.
+3 OverRange Input is out of sensitivity or display range
+2 NotGross A tare value has been applied.
+1 Integrity Sensor integrity Error
+0 Shunt Cal Shunt Cal active
